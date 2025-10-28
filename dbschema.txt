@@ -1,0 +1,42 @@
+Hospital {
+  _id,
+  name,
+  address,
+  departments: [String],
+  contact,
+  image,
+  description
+}
+
+Doctor {
+  _id,
+  name,
+  specialization,
+  department,
+  hospital_id,
+  experience,
+  availability: [{ day, from, to }],
+  profile_image,
+  contact,
+  email,
+  password (hashed)
+}
+
+User {
+  _id,
+  name,
+  email,
+  password (hashed),
+  phone,
+  bookings: [booking_id]
+}
+
+Appointment {
+  _id,
+  user_id,
+  doctor_id,
+  hospital_id,
+  date,
+  time,
+  status
+}
