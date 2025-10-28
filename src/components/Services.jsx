@@ -7,6 +7,7 @@ import {
     Baby,
     Activity,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
     const services = [
@@ -150,12 +151,16 @@ const ServicesSection = () => {
                     </p>
 
                     <div className="flex justify-center gap-6">
-                        <button className="bg-white text-green-900 font-semibold px-8 py-3 rounded-full shadow hover:scale-105 hover:bg-green-100 transition-all duration-300">
+                        <Link to="/appointment"
+                            onClick={() => setMenuOpen(false)}
+                            className="bg-white text-green-900 font-semibold px-8 py-3 rounded-full shadow hover:scale-105 hover:bg-green-100 transition-all duration-300">
                             Book an Appointment
-                        </button>
-                        <button className="border-2 border-white text-white font-semibold px-8 py-3 rounded-full hover:bg-white hover:text-green-900 transition-all duration-300">
+                        </Link>
+                        <Link to="/contact"
+                            onClick={() => setMenuOpen(false)}
+                            className="border-2 border-white text-white font-semibold px-8 py-3 rounded-full hover:bg-white hover:text-green-900 transition-all duration-300">
                             Contact Us
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>
