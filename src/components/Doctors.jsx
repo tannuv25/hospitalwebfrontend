@@ -11,7 +11,7 @@ const Doctors = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   return (
-    <section className="py-12 bg-green-50" id="doctors">
+    <section className="mt-10 py-12 bg-green-50" id="doctors">
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-green-800">Our Doctors</h2>
         <p className="text-gray-600 mt-2">

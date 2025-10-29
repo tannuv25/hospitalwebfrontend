@@ -6,7 +6,7 @@ const ContactPage = () => {
   return (
     <>
     <Navbar/>
-    <section className="bg-white text-gray-800 py-16 min-h-screen">
+    <section className="bg-white text-gray-800 py-16 min-h-screen mt-8">
       <div className="max-w-7xl mx-auto px-6">
         {/* Page Header */}
         <div className="text-center mb-12">

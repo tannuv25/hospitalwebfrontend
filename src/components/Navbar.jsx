@@ -73,6 +73,20 @@ const Navbar = () => {
                     Profile
                   </Link>
                   <Link
+                    to="/my-appointments"
+                    onClick={() => setDropdownOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  >
+                    My Appointments
+                  </Link>
+                  <Link
+                    to="/history"
+                    onClick={() => setDropdownOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  >
+                    History
+                  </Link>
+                  <Link
                     to="/settings"
                     onClick={() => setDropdownOpen(false)}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"

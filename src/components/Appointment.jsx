@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const BookAppointment = () => {
   const [formData, setFormData] = useState({
@@ -22,25 +24,86 @@ const BookAppointment = () => {
     "ENT",
   ];
 
+  // 🔹 Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // 🔹 Handle submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("✅ Appointment booked successfully!");
-    console.log(formData);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      department: "",
-      doctor: "",
-      date: "",
-      time: "",
-      message: "",
-    });
+
+    const token = localStorage.getItem("token");
+
+    // 🛑 If user not logged in
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "You need to login or sign up before booking an appointment.",
+        showCancelButton: true,
+        confirmButtonText: "Go to Login",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#16a34a",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/login";
+        }
+      });
+      return;
+    }
+
+    try {
+      // 🔹 Make POST request to backend
+      const res = await axios.post(
+        "http://localhost:8000/appointments/book",
+        {
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          department: formData.department,
+          doctorName: formData.doctor,
+          date: formData.date,
+          time: formData.time,
+          message: formData.message,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // ✅ Success Alert
+      Swal.fire({
+        icon: "success",
+        title: "Appointment Booked!",
+        text: res.data.message || "Your appointment has been scheduled successfully.",
+        confirmButtonColor: "#16a34a",
+      });
+
+      // 🔄 Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        department: "",
+        doctor: "",
+        date: "",
+        time: "",
+        message: "",
+      });
+    } catch (error) {
+      // ❌ Error Alert
+      Swal.fire({
+        icon: "error",
+        title: "Booking Failed",
+        text:
+          error.response?.data?.message ||
+          "Something went wrong while booking your appointment. Please try again.",
+      });
+    }
   };
 
   return (
@@ -199,7 +262,7 @@ const BookAppointment = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-green-700 text-white font-semibold px-10 py-3 rounded-lg hover:bg-green-800 transition shadow-md"
+              className="bg-green-700 text-white font-semibold px-10 py-3 rounded-lg hover:bg-green-800 transition shadow-md cursor-pointer"
             >
               Book Appointment
             </button>

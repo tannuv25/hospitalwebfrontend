@@ -9,6 +9,8 @@ import DoctorsPage from './pages/DoctorsPage'
 import AppointmentPage from './pages/AppointmentPage'
 import SignupPage from './pages/auth/SignupPage'
 import LoginPage from './pages/auth/LoginPage'
+import ProfilePage from './pages/ProfilePage'
+import MyappointmentPage from './pages/MyappointmentPage'
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path='/doctors' element = {<DoctorsPage/>}/>
         <Route path='/contact' element = {<ContactPage/>}/>
         <Route path='/appointment' element = {<AppointmentPage/>}/>
+        <Route path='/my-appointments' element = {<MyappointmentPage/>}/>
+        <Route path='/profile' element= {<ProfilePage/>}/> 
 
 
         <Route path='/login' element = {<LoginPage/>}/>
