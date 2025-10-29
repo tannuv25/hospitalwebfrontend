@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mail, Lock, User } from "lucide-react";
+import Swal from "sweetalert2";
 
 const AuthForm = ({ type, onSubmit }) => {
   const isLogin = type === "login";
@@ -13,9 +14,34 @@ const AuthForm = ({ type, onSubmit }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    try {
+      // Call the parent’s submit handler (login/signup)
+      const response = await onSubmit(formData);
+
+      // ✅ If API success
+      Swal.fire({
+        title: isLogin ? "Login Successful!" : "Signup Successful!",
+        text: isLogin
+          ? "Welcome back! You have logged in successfully."
+          : "Your account has been created successfully!",
+        icon: "success",
+        confirmButtonColor: "#16a34a",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text:
+          error?.message ||
+          "Something went wrong. Please check your details and try again.",
+        icon: "error",
+        confirmButtonColor: "#dc2626",
+      });
+    }
   };
 
   return (
@@ -63,7 +89,7 @@ const AuthForm = ({ type, onSubmit }) => {
 
           <button
             type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-green-300/50"
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-green-300/50 cursor-pointer"
           >
             {isLogin ? "Login" : "Sign Up"}
           </button>
